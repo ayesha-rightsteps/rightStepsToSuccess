@@ -78,7 +78,7 @@ export default function Hero() {
               backgroundClip: 'text',
             }}
           >
-            Right Path
+            Right Steps
           </span>{' '}
           to Success
         </motion.h1>
