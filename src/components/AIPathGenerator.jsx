@@ -244,16 +244,20 @@ export default function AIPathGenerator({ onBack, initialPathway }) {
     }
   }, [status])
 
-  // ── API call ─────────────────────────────────────────────────────────────
+  // ── API call (OpenAI) ────────────────────────────────────────────────────
   const callAPI = async (messages) => {
-    const response = await fetch('/api/anthropic/v1/messages', {
+    const openaiMessages = [
+      { role: 'system', content: buildSystemPrompt(routeType) },
+      ...messages,
+    ]
+
+    const response = await fetch('/api/openai/v1/chat/completions', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
+        model: 'gpt-4o',
         max_tokens: 2048,
-        system: buildSystemPrompt(routeType),
-        messages,
+        messages: openaiMessages,
       }),
     })
     if (!response.ok) {
@@ -261,7 +265,7 @@ export default function AIPathGenerator({ onBack, initialPathway }) {
       throw new Error(err.error?.message || `Request failed (${response.status})`)
     }
     const data = await response.json()
-    const raw = data.content?.[0]?.text ?? ''
+    const raw = data.choices?.[0]?.message?.content ?? ''
     const cleaned = raw.replace(/^```json?\s*/i, '').replace(/```\s*$/i, '').trim()
     const parsed = JSON.parse(cleaned)
     if (!parsed.explanation || !Array.isArray(parsed.steps) || !parsed.steps.length) {

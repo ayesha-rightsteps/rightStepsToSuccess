@@ -10,17 +10,15 @@ export default defineConfig(({ mode }) => {
     plugins: [tailwindcss(), react()],
     server: {
       proxy: {
-        '/api/anthropic': {
-          target: 'https://api.anthropic.com',
+        '/api/openai': {
+          target: 'https://api.openai.com',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/anthropic/, ''),
+          rewrite: (path) => path.replace(/^\/api\/openai/, ''),
           configure: (proxy) => {
             proxy.on('proxyReq', (proxyReq) => {
-              // Remove browser-origin headers so Anthropic treats this as server-to-server
               proxyReq.removeHeader('origin')
               proxyReq.removeHeader('referer')
-              proxyReq.setHeader('x-api-key', env.VITE_ANTHROPIC_API_KEY || '')
-              proxyReq.setHeader('anthropic-version', '2023-06-01')
+              proxyReq.setHeader('Authorization', `Bearer ${env.VITE_OPENAI_API_KEY || ''}`)
               proxyReq.setHeader('content-type', 'application/json')
             })
           },
