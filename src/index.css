@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  --color-navy: #0B2545;
+  --color-navy-deep: #071830;
+  --color-royal: #1E52C8;
+  --color-royal-hover: #1845b0;
+  --color-sky: #4F83E8;
+  --color-sky-pale: #EFF4FF;
+  --color-cream: #FAF9F7;
+  --color-parchment: #F0EDE6;
+  --color-gold: #C4892A;
+  --color-gold-light: #F7E6C0;
+  --color-slate: #64748B;
+  --color-muted: #94A3B8;
+  --color-border: #E2E8F0;
+  --color-text: #111827;
+  --color-text-light: #6B7280;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-parchment);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-royal);
+  border-radius: 3px;
+}
+
+/* Timeline connector line */
+.timeline-line {
+  position: absolute;
+  left: 23px;
+  top: 48px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #1E52C8, #C4892A, #7C3AED, #0891B2, #059669);
+}
+
+/* Card shadow */
+.card-shadow {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.card-shadow-hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.12);
+}
