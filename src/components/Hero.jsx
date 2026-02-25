@@ -78,7 +78,7 @@ export default function Hero() {
               backgroundClip: 'text',
             }}
           >
-            Perfect Path
+            Right Path
           </span>{' '}
           to Success
         </motion.h1>
