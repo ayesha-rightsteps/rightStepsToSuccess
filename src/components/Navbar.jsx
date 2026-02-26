@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 
+// Navbar dispatches a custom event to trigger the quiz screen from App.jsx
+function openQuiz() {
+  window.dispatchEvent(new CustomEvent('openQuiz'))
+}
+
 const navLinks = [
   { label: 'Subjects', href: '#subjects' },
   { label: 'Careers', href: '#careers' },
@@ -66,19 +71,30 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* CTA */}
-        <motion.a
-          href="#subjects"
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          className="hidden md:flex items-center gap-2 text-sm font-medium text-white px-5 py-2.5 rounded-full"
-          style={{ background: 'linear-gradient(135deg, #1E52C8, #4F83E8)' }}
-        >
-          Start Exploring
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </motion.a>
+        {/* CTA buttons */}
+        <div className="hidden md:flex items-center gap-3">
+          <motion.button
+            onClick={openQuiz}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-full"
+            style={{ background: 'rgba(196,137,42,0.15)', color: '#C4892A', border: '1px solid rgba(196,137,42,0.3)' }}
+          >
+            🎯 Career Quiz
+          </motion.button>
+          <motion.a
+            href="#subjects"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center gap-2 text-sm font-medium text-white px-5 py-2.5 rounded-full"
+            style={{ background: 'linear-gradient(135deg, #1E52C8, #4F83E8)' }}
+          >
+            Start Exploring
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </motion.a>
+        </div>
 
         {/* Mobile Hamburger */}
         <button
@@ -116,9 +132,16 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
+              <button
+                onClick={() => { openQuiz(); setMobileOpen(false) }}
+                className="text-sm font-medium text-center py-2.5 rounded-full mt-2"
+                style={{ background: 'rgba(196,137,42,0.15)', color: '#C4892A', border: '1px solid rgba(196,137,42,0.3)' }}
+              >
+                🎯 Career Quiz
+              </button>
               <a
                 href="#subjects"
-                className="text-sm font-medium text-white text-center py-2.5 rounded-full mt-2"
+                className="text-sm font-medium text-white text-center py-2.5 rounded-full"
                 style={{ background: 'linear-gradient(135deg, #1E52C8, #4F83E8)' }}
                 onClick={() => setMobileOpen(false)}
               >
